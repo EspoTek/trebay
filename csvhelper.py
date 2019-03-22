@@ -121,7 +121,7 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     bestOfferDetails["BestOfferEnabled"] = toBool(turboListerFields["BestOfferEnabled"])
     itemRoot["BestOfferDetails"] = bestOfferDetails
 
-    itemRoot["ConditionDescription"] = turboListerFields["ConditionDescription"]
+    itemRoot["ConditionDescription"] = xml.sax.saxutils.escape(turboListerFields["ConditionDescription"])
     itemRoot["ConditionID"] = turboListerFields["Condition"]
     itemRoot["Country"] = turboListerFields["Location - Country"]
     itemRoot["Currency"] = toCurrency(turboListerFields["Currency"])
@@ -149,17 +149,17 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     sellerProfiles = dict()
     
     sellerPaymentProfile = dict()
-    sellerPaymentProfile["PaymentProfileName"] = turboListerFields["ITEM_PAYMENT_POLICYNAME"]
+    sellerPaymentProfile["PaymentProfileName"] = xml.sax.saxutils.escape(turboListerFields["ITEM_PAYMENT_POLICYNAME"])
     sellerPaymentProfile["PaymentProfileID"] = turboListerFields["ITEM_PAYMENT_POLICYID"]
     sellerProfiles["SellerPaymentProfile"] = sellerPaymentProfile
     
     sellerReturnProfile = dict()
-    sellerReturnProfile["ReturnProfileName"] = turboListerFields["ITEM_RETURN_POLICYNAME"]
+    sellerReturnProfile["ReturnProfileName"] = xml.sax.saxutils.escape(turboListerFields["ITEM_RETURN_POLICYNAME"])
     sellerReturnProfile["ReturnProfileID"] = turboListerFields["ITEM_RETURN_POLICYID"]
     sellerProfiles["SellerReturnProfile"] = sellerReturnProfile
 
     sellerShippingProfile = dict()
-    sellerShippingProfile["ShippingProfileName"] = turboListerFields["ITEM_SHIPPING_POLICYNAME"]
+    sellerShippingProfile["ShippingProfileName"] = xml.sax.saxutils.escape(turboListerFields["ITEM_SHIPPING_POLICYNAME"])
     sellerShippingProfile["ShippingProfileID"] = turboListerFields["ITEM_SHIPPING_POLICYID"]
     sellerProfiles["SellerShippingProfile"] = sellerShippingProfile
 
@@ -175,8 +175,8 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     storefront["StoreCategory2ID"] = turboListerFields["Store Category 2"]
     itemRoot["Storefront"] = storefront
 
-    itemRoot["SubTitle"] = turboListerFields["SubtitleText"]
-    itemRoot["Title"] = turboListerFields["Title"]
+    itemRoot["SubTitle"] = xml.sax.saxutils.escape(turboListerFields["SubtitleText"])
+    itemRoot["Title"] = xml.sax.saxutils.escape(turboListerFields["Title"])
 
     tradingApiFormat["Item"] = cleanDict(itemRoot)
     
