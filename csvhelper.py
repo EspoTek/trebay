@@ -1,6 +1,7 @@
 import csv
 import xmltodict
 import xml.etree.ElementTree
+import imageuploadhelper
 
 def cleanDict(dictionary):
     hitList = list()
@@ -42,6 +43,16 @@ def toListingType(turboListerFormat):
     else:
         return None
 
+def toPictureURLs(field):
+    unparsedList = field.split('|', 1)[0]
+    parsedList = unparsedList.split('*')[:-1]
+
+    pictureURLs = list()
+    for picture in parsedList:
+        pictureURLs.append(imageuploadhelper.upload(picture))
+        
+    return pictureURLs
+
 # TODO:
 # Item.BuyerRequirementDetails
 # Item.CategoryMappingAllowed 
@@ -63,7 +74,7 @@ def toListingType(turboListerFormat):
 # Item.PaymentMethods
 # Item.PayPalEmailAddress
 # Item.PickupInStoreDetails 
-# Item.PictureDetails 
+# Item.PictureDetails (extended)
 
 def convertFromTurboListerToTradingApi(turboListerFields):
     # Default value in turbo lister format is "~"
@@ -87,6 +98,10 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["ListingDuration"] = turboListerFields["Duration"]
     itemRoot["ListingType"] = toListingType(turboListerFields["Format"])
 
+    pictureDetails = dict()
+    pictureDetails["PictureURL"] = toPictureURLs(turboListerFields["Item.ExportedImages"])
+    itemRoot["PictureDetails"] = pictureDetails
+    
     tradingApiFormat["Item"] = cleanDict(itemRoot)
     
     return tradingApiFormat
