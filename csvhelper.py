@@ -1,7 +1,7 @@
 import csv
 import xml.etree.ElementTree
 import xml.sax.saxutils
-
+import urllib.parse
 import xmltodict
 
 import imageuploadhelper
@@ -125,7 +125,7 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["ConditionID"] = turboListerFields["Condition"]
     itemRoot["Country"] = turboListerFields["Location - Country"]
     itemRoot["Currency"] = toCurrency(turboListerFields["Currency"])
-    itemRoot["Description"] = xml.sax.saxutils.escape(turboListerFields["Description"])
+    itemRoot["Description"] = xml.sax.saxutils.escape(urllib.parse.unquote(turboListerFields["Description"]))
     itemRoot["ItemSpecifics"] = toNameValueList(turboListerFields["SellerTags"], "ItemSpecifics")
     itemRoot["ListingDuration"] = turboListerFields["Duration"]
     itemRoot["ListingType"] = toListingType(turboListerFields["Format"])
