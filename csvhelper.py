@@ -188,6 +188,5 @@ def loadFile(filePath):
         reader = csv.DictReader(csvFile)
         for row in reader:
             parsedData.append(convertFromTurboListerToTradingApi(row))
-            print("\n")
     
     return parsedData

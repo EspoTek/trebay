@@ -19,10 +19,10 @@ if len(sys.argv) != 3:
 csvPath = sys.argv[1]
 if sys.argv[2] == "--dry":
     apiCall = "VerifyAddItem"
-    print("\n\nRunning as DRY MODE ONLY - nothing will actually be listed on eBay...")
+    print("\n\nRunning in DRY MODE ONLY - nothing will actually be listed on eBay...")
 elif sys.argv[2] == "--live":
     apiCall = "AddItem"
-    print("\n\nRunning as LIVE MODE - all listings will immediately go live on eBay!!")
+    print("\n\nRunning in LIVE MODE - all listings will immediately go live on eBay!!")
 else:
     argvError()
 
@@ -35,7 +35,7 @@ listings = csvhelper.loadFile(csvPath)
 try:
     for listing in listings:
         item = listing["Item"]
-        print("Uploading %s" % item["Title"])
+        print("Uploading listing %s" % item["Title"])
 
         api = ebaysdk.trading.Connection(config_file=trebaycredentials.ebayCredentials)
         response = api.execute(apiCall, listing)
