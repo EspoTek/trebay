@@ -1,7 +1,7 @@
 # trebay
-This is trebay, a tool I've created for exporting Turbo Lister databases and uploading them to the eBay website.
-It was basically created for my own use only, so many, many features are missing (including basic stuff like Auctions and countries that are not Australia!)
-Of course, this would be a useful basis for anyone else who wanted to add those features.
+This is trebay, a tool I've created for exporting Turbo Lister databases and uploading them to the eBay website.  
+It was basically created for my own use only, so many, many features are missing (including basic stuff like Auctions and support for countries that are not Australia!)  
+Of course, this would be a useful basis for anyone else who wanted to add those features.  
 
 To use it, you'll need to set up two files under `$HOME/trebay/credentials` (or `C:\Users\blah\trebay\credentials on Windows`)
 
@@ -28,17 +28,12 @@ api.ebay.com:
     token: buzz
  ```
  
- Then, once you've got them:
- 
- Export a file in Turbo Lister [File->Export Selected Items->Turbo Lister Formatted (CSV)]
- 
- `pip install cloudinary`
- 
- `pip install ebaysdk`
- 
- `pip install xmltodict`
- 
- `python3 csvup.py /path/to/turboListerFormatted.csv [--dry/--live]`
+ Then, once you've got them:  
+ Export a file in Turbo Lister [File->Export Selected Items->Turbo Lister Formatted (CSV)]  
+ `pip install cloudinary`  
+ `pip install ebaysdk`  
+ `pip install xmltodict`  
+ `python3 csvup.py /path/to/turboListerFormatted.csv [--dry/--live]`  
  
  I recommend using the `--dry` option on your first run, as it doesn't actually upload anything to eBay (just verifies that it can).
  
