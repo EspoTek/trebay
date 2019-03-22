@@ -96,6 +96,10 @@ def toSite(siteID):
 # Item.SubTitle 
 # Item.UseTaxTable 
 # Item.UUID 
+# Item.Variations
+# Item.VATDetails
+# Item.VIN
+# Item.VRM
 
 def convertFromTurboListerToTradingApi(turboListerFields):
     # Default value in turbo lister format is "~"
