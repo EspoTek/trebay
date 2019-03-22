@@ -3,8 +3,9 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-sys.path.append('/home/esposch/credentials')
-import cloudinarycredentials
+import trebaycredentials
+
+trebaycredentials.setCloudinaryCredentials()
 
 def upload(imagePath):
   # http://res.cloudinary.com/trebay56bits/image/upload/test_folder/test.jpg
