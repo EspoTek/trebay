@@ -36,6 +36,12 @@ def toNameValueList(field, root):
     xmldict = xmltodict.parse(field, dict_constructor=dict)
     return xmldict[root]
 
+def toListingType(turboListerFormat):
+    if turboListerFormat == '9':
+        return "FixedPriceItem"
+    else:
+        return None
+
 # TODO:
 # Item.BuyerRequirementDetails
 # Item.CategoryMappingAllowed 
@@ -53,6 +59,11 @@ def toNameValueList(field, root):
 # Item.ItemCompatibilityList
 # Item.ListingDesigner
 # Item.ListingDetails
+# Item.Location
+# Item.PaymentMethods
+# Item.PayPalEmailAddress
+# Item.PickupInStoreDetails 
+# Item.PictureDetails 
 
 def convertFromTurboListerToTradingApi(turboListerFields):
     # Default value in turbo lister format is "~"
@@ -71,10 +82,11 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["ConditionDescription"] = turboListerFields["ConditionDescription"]
     itemRoot["ConditionID"] = turboListerFields["Condition"]
     itemRoot["Country"] = turboListerFields["Location - Country"]
-    # itemRoot["Currency"] = "AUD"
     itemRoot["Description"] = turboListerFields["Description"]
     itemRoot["ItemSpecifics"] = toNameValueList(turboListerFields["SellerTags"], "ItemSpecifics")
     itemRoot["ListingDuration"] = turboListerFields["Duration"]
+    itemRoot["ListingType"] = toListingType(turboListerFields["Format"])
+
     tradingApiFormat["Item"] = cleanDict(itemRoot)
     
     return tradingApiFormat
