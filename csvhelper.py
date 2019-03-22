@@ -45,10 +45,12 @@ def toListingType(turboListerFormat):
 
 def toPictureURLs(field):
     unparsedList = field.split('|', 1)[0]
+    unparsedList = unparsedList.replace("\\", "/")
     parsedList = unparsedList.split('*')[:-1]
 
     pictureURLs = list()
     for picture in parsedList:
+        print("Uploading image %s" % picture)
         pictureURLs.append(imageuploadhelper.upload(picture))
         
     return pictureURLs
@@ -102,6 +104,8 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     pictureDetails["PictureURL"] = toPictureURLs(turboListerFields["Item.ExportedImages"])
     itemRoot["PictureDetails"] = pictureDetails
     
+    itemRoot["PostalCode"] = toListingType(turboListerFields["Zip"])
+
     tradingApiFormat["Item"] = cleanDict(itemRoot)
     
     return tradingApiFormat
