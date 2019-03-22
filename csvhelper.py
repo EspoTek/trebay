@@ -1,3 +1,42 @@
+# TODO:
+# Item.BuyerRequirementDetails
+# Item.CategoryMappingAllowed 
+# Item.Charity 
+# Item.CrossBorderTrade
+# Item.DigitalGoodInfo
+# Item.DisableBuyerRequirements 
+# Item.DiscountPriceInfo
+# Item.DispatchTimeMax
+# Item.eBayPlus 
+# Item.HitCounter
+# Item.IncludeRecommendations
+# Item.InventoryTrackingMethod 
+# Item.ItemCompatibilityList
+# Item.ListingDesigner
+# Item.ListingDetails
+# Item.Location
+# Item.PaymentMethods
+# Item.PayPalEmailAddress
+# Item.PickupInStoreDetails 
+# Item.PictureDetails (extended)
+# Item.PrivateListing 
+# Item.PrivateNotes 
+# Item.ProductListingDetails 
+# Item.QuantityInfo 
+# Item.ReturnPolicy 
+# Item.ScheduleTime
+# Item.SellerProvidedTitle 
+# Item.ShippingDetails
+# Item.ShippingPackageDetails 
+# Item.ShippingServiceCostOverrideList 
+# Item.SubTitle 
+# Item.UseTaxTable 
+# Item.UUID 
+# Item.Variations
+# Item.VATDetails
+# Item.VIN
+# Item.VRM
+
 import csv
 import xml.etree.ElementTree
 import xml.sax.saxutils
@@ -67,45 +106,6 @@ def toSite(siteID):
         return "Australia"
     else:
         return None
-
-# TODO:
-# Item.BuyerRequirementDetails
-# Item.CategoryMappingAllowed 
-# Item.Charity 
-# Item.CrossBorderTrade
-# Item.DigitalGoodInfo
-# Item.DisableBuyerRequirements 
-# Item.DiscountPriceInfo
-# Item.DispatchTimeMax
-# Item.eBayPlus 
-# Item.HitCounter
-# Item.IncludeRecommendations
-# Item.InventoryTrackingMethod 
-# Item.ItemCompatibilityList
-# Item.ListingDesigner
-# Item.ListingDetails
-# Item.Location
-# Item.PaymentMethods
-# Item.PayPalEmailAddress
-# Item.PickupInStoreDetails 
-# Item.PictureDetails (extended)
-# Item.PrivateListing 
-# Item.PrivateNotes 
-# Item.ProductListingDetails 
-# Item.QuantityInfo 
-# Item.ReturnPolicy 
-# Item.ScheduleTime
-# Item.SellerProvidedTitle 
-# Item.ShippingDetails
-# Item.ShippingPackageDetails 
-# Item.ShippingServiceCostOverrideList 
-# Item.SubTitle 
-# Item.UseTaxTable 
-# Item.UUID 
-# Item.Variations
-# Item.VATDetails
-# Item.VIN
-# Item.VRM
 
 def convertFromTurboListerToTradingApi(turboListerFields):
     # Default value in turbo lister format is "~"
