@@ -55,6 +55,12 @@ def toPictureURLs(field):
         
     return pictureURLs
 
+def toSite(siteID):
+    if siteID == '15':
+        return "Australia"
+    else:
+        return None
+
 # TODO:
 # Item.BuyerRequirementDetails
 # Item.CategoryMappingAllowed 
@@ -77,6 +83,19 @@ def toPictureURLs(field):
 # Item.PayPalEmailAddress
 # Item.PickupInStoreDetails 
 # Item.PictureDetails (extended)
+# Item.PrivateListing 
+# Item.PrivateNotes 
+# Item.ProductListingDetails 
+# Item.QuantityInfo 
+# Item.ReturnPolicy 
+# Item.ScheduleTime
+# Item.SellerProvidedTitle 
+# Item.ShippingDetails
+# Item.ShippingPackageDetails 
+# Item.ShippingServiceCostOverrideList 
+# Item.SubTitle 
+# Item.UseTaxTable 
+# Item.UUID 
 
 def convertFromTurboListerToTradingApi(turboListerFields):
     # Default value in turbo lister format is "~"
@@ -104,7 +123,39 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     pictureDetails["PictureURL"] = toPictureURLs(turboListerFields["Item.ExportedImages"])
     itemRoot["PictureDetails"] = pictureDetails
     
-    itemRoot["PostalCode"] = toListingType(turboListerFields["Zip"])
+    itemRoot["PostalCode"] = turboListerFields["Zip"]
+
+    primaryCategory = dict()
+    primaryCategory["CategoryID"] = turboListerFields["Category 1"]
+    itemRoot["PrimaryCategory"] = primaryCategory
+
+    itemRoot["Quantity"] = turboListerFields["Quantity"]
+
+    secondaryCategory = dict()
+    secondaryCategory["CategoryID"] = turboListerFields["Category 2"]
+    itemRoot["SecondaryCategory"] = secondaryCategory
+
+    sellerProfiles = dict()
+    sellerProfiles["PaymentProfileName"] = turboListerFields["ITEM_PAYMENT_POLICYNAME"]
+    sellerProfiles["PaymentProfileID"] = turboListerFields["ITEM_PAYMENT_POLICYID"]
+    sellerProfiles["ReturnProfileName"] = turboListerFields["ITEM_RETURN_POLICYNAME"]
+    sellerProfiles["ReturnProfileID"] = turboListerFields["ITEM_RETURN_POLICYID"]
+    sellerProfiles["ShippingProfileName"] = turboListerFields["ITEM_SHIPPING_POLICYNAME"]
+    sellerProfiles["ShippingProfileID"] = turboListerFields["ITEM_SHIPPING_POLICYID"]
+    itemRoot["SellerProfiles"] = sellerProfiles
+
+    itemRoot["Site"] = toSite(turboListerFields["Site"])
+    itemRoot["SiteId"] = turboListerFields["Site"]
+    itemRoot["SKU"] = turboListerFields["Custom Label"]
+    itemRoot["StartPrice"] = turboListerFields["Starting Price"]
+
+    storeFront = dict()
+    storeFront["StoreCategoryID"] = turboListerFields["Store Category"]
+    storeFront["StoreCategory2ID"] = turboListerFields["Store Category 2"]
+    itemRoot["StoreFront"] = storeFront
+
+    itemRoot["SubTitle"] = turboListerFields["SubtitleText"]
+    itemRoot["Title"] = turboListerFields["Title"]
 
     tradingApiFormat["Item"] = cleanDict(itemRoot)
     
