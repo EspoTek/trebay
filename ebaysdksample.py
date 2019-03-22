@@ -8,6 +8,8 @@ import csvhelper
 
 listings = csvhelper.loadFile("/home/esposch/Downloads/sample-gta5.csv")
 
+print(listings)
+
 try:
     for listing in listings:
         item = listing["Item"]

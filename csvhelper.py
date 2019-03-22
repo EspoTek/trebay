@@ -1,6 +1,9 @@
 import csv
-import xmltodict
 import xml.etree.ElementTree
+import xml.sax.saxutils
+
+import xmltodict
+
 import imageuploadhelper
 
 def cleanDict(dictionary):
@@ -32,6 +35,10 @@ def toBool(field):
         return "true"
     else:
         raise RuntimeError("Cannot convert to bool")
+
+def toCurrency(field):
+    if field == '5':
+        return "AUD"
 
 def toNameValueList(field, root):
     xmldict = xmltodict.parse(field, dict_constructor=dict)
@@ -66,7 +73,6 @@ def toSite(siteID):
 # Item.CategoryMappingAllowed 
 # Item.Charity 
 # Item.CrossBorderTrade
-# Item.Currency 
 # Item.DigitalGoodInfo
 # Item.DisableBuyerRequirements 
 # Item.DiscountPriceInfo
@@ -104,7 +110,7 @@ def toSite(siteID):
 def convertFromTurboListerToTradingApi(turboListerFields):
     # Default value in turbo lister format is "~"
     for key, value in turboListerFields.items():
-        if value == '~':
+        if value == '~' or value == "":
             turboListerFields[key] = None
 
     tradingApiFormat = dict()
@@ -118,7 +124,8 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["ConditionDescription"] = turboListerFields["ConditionDescription"]
     itemRoot["ConditionID"] = turboListerFields["Condition"]
     itemRoot["Country"] = turboListerFields["Location - Country"]
-    itemRoot["Description"] = turboListerFields["Description"]
+    itemRoot["Currency"] = toCurrency(turboListerFields["Currency"])
+    itemRoot["Description"] = xml.sax.saxutils.escape(turboListerFields["Description"])
     itemRoot["ItemSpecifics"] = toNameValueList(turboListerFields["SellerTags"], "ItemSpecifics")
     itemRoot["ListingDuration"] = turboListerFields["Duration"]
     itemRoot["ListingType"] = toListingType(turboListerFields["Format"])
