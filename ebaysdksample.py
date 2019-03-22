@@ -1,14 +1,21 @@
 import datetime
+
 import ebaysdk
 import ebaysdk.trading
 from ebaysdk.exception import *
 
-try:
-    api = ebaysdk.trading.Connection(config_file="/home/esposch/credentials/ebay.yaml")
-    response = api.execute('GetUser', {})
-    print(response.dict())
-    print(response.reply)
+import csvhelper
 
-except ebaysdk.exception.ConnectionError as e:
-    print(e)
-    print(e.response.dict())
+listings = csvhelper.loadFile("/home/esposch/Downloads/sample-gta5.csv")
+print(listings)
+
+
+# try:
+#     api = ebaysdk.trading.Connection(config_file="/home/esposch/credentials/ebay.yaml")
+#     response = api.execute('GetUser', {})
+#     print(response.dict())
+#     print(response.reply)
+
+# except ebaysdk.exception.ConnectionError as e:
+#     print(e)
+#     print(e.response.dict())
