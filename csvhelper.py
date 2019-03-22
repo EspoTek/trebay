@@ -147,12 +147,22 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["SecondaryCategory"] = secondaryCategory
 
     sellerProfiles = dict()
-    sellerProfiles["PaymentProfileName"] = turboListerFields["ITEM_PAYMENT_POLICYNAME"]
-    sellerProfiles["PaymentProfileID"] = turboListerFields["ITEM_PAYMENT_POLICYID"]
-    sellerProfiles["ReturnProfileName"] = turboListerFields["ITEM_RETURN_POLICYNAME"]
-    sellerProfiles["ReturnProfileID"] = turboListerFields["ITEM_RETURN_POLICYID"]
-    sellerProfiles["ShippingProfileName"] = turboListerFields["ITEM_SHIPPING_POLICYNAME"]
-    sellerProfiles["ShippingProfileID"] = turboListerFields["ITEM_SHIPPING_POLICYID"]
+    
+    sellerPaymentProfile = dict()
+    sellerPaymentProfile["PaymentProfileName"] = turboListerFields["ITEM_PAYMENT_POLICYNAME"]
+    sellerPaymentProfile["PaymentProfileID"] = turboListerFields["ITEM_PAYMENT_POLICYID"]
+    sellerProfiles["SellerPaymentProfile"] = sellerPaymentProfile
+    
+    sellerReturnProfile = dict()
+    sellerReturnProfile["ReturnProfileName"] = turboListerFields["ITEM_RETURN_POLICYNAME"]
+    sellerReturnProfile["ReturnProfileID"] = turboListerFields["ITEM_RETURN_POLICYID"]
+    sellerProfiles["SellerReturnProfile"] = sellerReturnProfile
+
+    sellerShippingProfile = dict()
+    sellerShippingProfile["ShippingProfileName"] = turboListerFields["ITEM_SHIPPING_POLICYNAME"]
+    sellerShippingProfile["ShippingProfileID"] = turboListerFields["ITEM_SHIPPING_POLICYID"]
+    sellerProfiles["SellerShippingProfile"] = sellerShippingProfile
+
     itemRoot["SellerProfiles"] = sellerProfiles
 
     itemRoot["Site"] = toSite(turboListerFields["Site"])
