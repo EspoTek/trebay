@@ -170,10 +170,10 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["SKU"] = turboListerFields["Custom Label"]
     itemRoot["StartPrice"] = turboListerFields["Starting Price"]
 
-    storeFront = dict()
-    storeFront["StoreCategoryID"] = turboListerFields["Store Category"]
-    storeFront["StoreCategory2ID"] = turboListerFields["Store Category 2"]
-    itemRoot["StoreFront"] = storeFront
+    storefront = dict()
+    storefront["StoreCategoryID"] = turboListerFields["Store Category"]
+    storefront["StoreCategory2ID"] = turboListerFields["Store Category 2"]
+    itemRoot["Storefront"] = storefront
 
     itemRoot["SubTitle"] = turboListerFields["SubtitleText"]
     itemRoot["Title"] = turboListerFields["Title"]
@@ -188,5 +188,6 @@ def loadFile(filePath):
         reader = csv.DictReader(csvFile)
         for row in reader:
             parsedData.append(convertFromTurboListerToTradingApi(row))
+            print("\n")
     
     return parsedData
