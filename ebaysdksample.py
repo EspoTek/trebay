@@ -7,7 +7,7 @@ from ebaysdk.exception import *
 import csvhelper
 
 listings = csvhelper.loadFile("/home/esposch/Downloads/sample-gta5.csv")
-print(listings)
+# print(listings)
 
 
 # try:
