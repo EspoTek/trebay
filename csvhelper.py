@@ -121,6 +121,11 @@ def convertFromTurboListerToTradingApi(turboListerFields):
 
     tradingApiFormat = dict()
     itemRoot = dict()
+
+    # Get Title first, as it helps with debugging
+    itemRoot["Title"] = xmlEscape(turboListerFields["Title"])
+    print("Parsing item %s" % turboListerFields["Title"])
+
     itemRoot["AutoPay"] = toBool(turboListerFields["AutoPay"])
     
     bestOfferDetails = dict()
@@ -141,6 +146,10 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["PictureDetails"] = pictureDetails
     
     itemRoot["PostalCode"] = turboListerFields["Zip"]
+    
+    productListingDetails = dict()
+    productListingDetails["UPC"] = turboListerFields["UPC"]
+    itemRoot["ProductListingDetails"] = productListingDetails
 
     primaryCategory = dict()
     primaryCategory["CategoryID"] = turboListerFields["Category 1"]
@@ -182,10 +191,10 @@ def convertFromTurboListerToTradingApi(turboListerFields):
     itemRoot["Storefront"] = storefront
 
     itemRoot["SubTitle"] = xmlEscape(turboListerFields["SubtitleText"])
-    itemRoot["Title"] = xmlEscape(turboListerFields["Title"])
 
     tradingApiFormat["Item"] = cleanDict(itemRoot)
     
+    print()
     return tradingApiFormat
 
 def loadFile(filePath):
